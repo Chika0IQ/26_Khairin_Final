@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     public Rigidbody playerRb;
-    //public Animator animator;
+    public Animator animator;
     public GameObject cam1;
     public GameObject cam2;
 
@@ -29,12 +29,15 @@ public class PlayerMovement : MonoBehaviour
     {
         cam1.SetActive(true);
         cam2.SetActive(false);
+
+        animator.SetBool("isIdle", true);
     }
 
     // Update is called once per frame
     void Update()
     {
         PlayerControls();
+        
     }
 
     private void PlayerControls()
@@ -44,6 +47,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+
+            animator.SetBool("isIdle",false);
+        }
+        else if (Input.GetKeyUp(KeyCode.W))
+        {
+            animator.SetBool("isIdle", true);
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -78,6 +87,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 CameraChange2();
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            animator.SetTrigger("shooting");
+        }
+        else if (Input.GetKeyUp(KeyCode.Q))
+        {
+            animator.SetBool("isIdle", true);
         }
     }
 
