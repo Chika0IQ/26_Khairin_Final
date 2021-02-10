@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float rotateSpeed = 950f;
     [SerializeField] private float jump = 7.5f;
@@ -15,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public GameObject cam1;
     public GameObject cam2;
+    public GameObject bulletPrefab;
+    public GameObject bulletSpawn;
 
 
     public static int spacePressed = 0;
@@ -37,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         PlayerControls();
-        
+
     }
 
     private void PlayerControls()
@@ -48,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
 
-            animator.SetBool("isIdle",false);
+            animator.SetBool("isIdle", false);
         }
         else if (Input.GetKeyUp(KeyCode.W))
         {
@@ -63,6 +64,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
         {
             transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
+            animator.SetBool("isIdle", false);
+        }
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+            animator.SetBool("isIdle", true);
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
@@ -70,16 +76,16 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(new Vector3(0, Time.deltaTime * rotateSpeed, 0));
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && spacePressed < 1) 
+        if (Input.GetKeyDown(KeyCode.Space) && spacePressed < 1)
         {
             playerRb.AddForce(Vector3.up * jump, ForceMode.Impulse);
             spacePressed += 1;
             Debug.Log(spacePressed);
         }
 
-        if(Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            if(tPressed == 0)
+            if (tPressed == 0)
             {
                 CameraChange1();
             }
@@ -89,9 +95,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             animator.SetTrigger("shooting");
+
+            PlayerShoot();
         }
         else if (Input.GetKeyUp(KeyCode.Q))
         {
@@ -121,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(cam1.transform.position, cam1.transform.forward, out hit, range))
         {
             Debug.Log(hit.transform.name);
+            Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
         }
     }
 }
