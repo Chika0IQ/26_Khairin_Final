@@ -57,10 +57,33 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isIdle", true);
         }
 
+
+
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+
+            animator.SetBool("walkingLeft", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.A))
+        {
+            animator.SetBool("walkingLeft", false);
+            animator.SetBool("isIdle", true);
+        }
+
+
+
+
+
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.Rotate(new Vector3(0, Time.deltaTime * -rotateSpeed, 0));
         }
+
+
+
+
 
         if (Input.GetKey(KeyCode.S))
         {
@@ -71,6 +94,20 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isIdle", true);
         }
+
+
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+            animator.SetBool("walkingRight", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            animator.SetBool("walkingRight", false);
+            animator.SetBool("isIdle", true);
+        }
+
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -84,6 +121,10 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log(spacePressed);
         }
 
+
+
+
+
         if (Input.GetKeyDown(KeyCode.T))
         {
             if (tPressed == 0)
@@ -96,22 +137,34 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (ammoCount <= 15 & ammoCount != 0)
         {
-            animator.SetTrigger("shooting");
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                animator.SetTrigger("shooting");
 
-            PlayerShoot();
+                PlayerShoot();
 
-            ammoCount -= 1;
-        }
-        else if (Input.GetKeyUp(KeyCode.Q))
-        {
-            animator.SetBool("isIdle", true);
+                ammoCount -= 1;
+            }
+            else if (Input.GetKeyUp(KeyCode.Q))
+            {
+                animator.SetBool("isIdle", true);
+            }
         }
 
         if(ammoCount <= 0)
         {
+            if(Input.GetKey(KeyCode.R))
+            {
+                animator.SetTrigger("reload");
 
+                ammoCount += 15f;
+            }
+            else if (Input.GetKeyUp(KeyCode.R))
+            {
+                animator.SetTrigger("isIdle");
+            }
         }
     }
 
