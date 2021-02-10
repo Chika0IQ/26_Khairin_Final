@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     public static int spacePressed = 0;
+    public static float ammoCount = 15f;
     public float range = 100f;
 
     private float gravity = 850f;
@@ -100,10 +101,17 @@ public class PlayerMovement : MonoBehaviour
             animator.SetTrigger("shooting");
 
             PlayerShoot();
+
+            ammoCount -= 1;
         }
         else if (Input.GetKeyUp(KeyCode.Q))
         {
             animator.SetBool("isIdle", true);
+        }
+
+        if(ammoCount <= 0)
+        {
+
         }
     }
 
