@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public Camera cam2;
 
 
-    private int spacePressed = 0;
+    public static int spacePressed = 0;
     public float range = 100f;
 
     private float gravity = 850f;
