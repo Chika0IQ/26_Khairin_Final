@@ -7,26 +7,28 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float rotateSpeed = 950f;
-    [SerializeField] private float verticalRotate = 80f;
     [SerializeField] private float jump = 7.5f;
 
 
 
     public Rigidbody playerRb;
     //public Animator animator;
-    public Camera cam1;
-    public Camera cam2;
+    public GameObject cam1;
+    public GameObject cam2;
 
 
     public static int spacePressed = 0;
     public float range = 100f;
 
     private float gravity = 850f;
+    private int tPressed = 0;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        cam1.SetActive(true);
+        cam2.SetActive(false);
     }
 
     // Update is called once per frame
@@ -65,6 +67,34 @@ public class PlayerMovement : MonoBehaviour
             spacePressed += 1;
             Debug.Log(spacePressed);
         }
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            if(tPressed == 0)
+            {
+                CameraChange1();
+            }
+            else if (tPressed == 1)
+            {
+                CameraChange2();
+            }
+        }
+    }
+
+    private void CameraChange1()
+    {
+        cam1.SetActive(true);
+        cam2.SetActive(false);
+
+        tPressed = 1;
+    }
+
+    private void CameraChange2()
+    {
+        cam1.SetActive(false);
+        cam2.SetActive(true);
+
+        tPressed = 0;
     }
 
     private void PlayerShoot()
