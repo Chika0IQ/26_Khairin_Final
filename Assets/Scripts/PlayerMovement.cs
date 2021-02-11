@@ -64,11 +64,11 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
 
-            animator.SetBool("walkingLeft", true);
+            animator.SetBool("isWalkLeft", true);
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
-            animator.SetBool("walkingLeft", false);
+            animator.SetBool("isWalkLeft", false);
             animator.SetBool("isIdle", true);
         }
 
@@ -100,11 +100,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
-            animator.SetBool("walkingRight", true);
+            animator.SetBool("isWalkRight", true);
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
-            animator.SetBool("walkingRight", false);
+            animator.SetBool("isWalkRight", false);
             animator.SetBool("isIdle", true);
         }
 
@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                animator.SetTrigger("shooting");
+                animator.SetTrigger("triggShooting");
 
                 PlayerShoot();
 
@@ -149,15 +149,19 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (Input.GetKeyUp(KeyCode.Q))
             {
-                animator.SetBool("isIdle", true);
+                //animator.SetBool("triggShooting", true);
             }
+        }
+        else if (isReloading == true)
+        {
+            isReloading = false;
         }
 
         if(ammoCount <= 0)
         {
             if(Input.GetKey(KeyCode.R))
             {
-                animator.SetTrigger("reload");
+                animator.SetTrigger("triggReloading");
 
                 ammoCount += 15f;
 
@@ -196,6 +200,10 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log(hit.transform.name);
             Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
+
+            
         }
+
+        
     }
 }

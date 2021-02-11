@@ -16,12 +16,4 @@ public class BulletSpawn : MonoBehaviour
     {
         transform.position += transform.forward * speed * Time.deltaTime;
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Enemy"))
-        {
-
-        }
-    }
 }
