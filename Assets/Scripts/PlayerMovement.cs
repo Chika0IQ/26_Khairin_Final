@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float gravity = 850f;
     private int tPressed = 0;
-
+    private bool isReloading = false;
 
     // Start is called before the first frame update
     void Start()
@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (ammoCount <= 15 & ammoCount != 0)
+        if (ammoCount <= 15 & ammoCount != 0 & isReloading == false)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -160,10 +160,15 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetTrigger("reload");
 
                 ammoCount += 15f;
+
+                isReloading = true;
             }
             else if (Input.GetKeyUp(KeyCode.R))
             {
+
                 animator.SetTrigger("isIdle");
+
+                //isReloading = false;
             }
         }
     }
