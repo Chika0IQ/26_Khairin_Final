@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
 
     public static float health;
-    public static float maxHealth = 20;
+    public static float maxHealth = 100;
 
     public GameObject healthBar;
     public Slider slider;
 
-    
+    public GameObject playerhealthTxt;
 
 
     // Start is called before the first frame update
@@ -27,22 +27,22 @@ public class EnemyHealth : MonoBehaviour
     {
         slider.value = CalHealth();
 
-        Debug.Log(health);
-
-        if(health < maxHealth)
+        if (health < maxHealth)
         {
             healthBar.SetActive(true);
         }
 
-        if(health <= 0)
+        if (health <= 0)
         {
-            //Destroy(gameObject);
+            //PlayerMovement.animator.SetBool("isDeath", true);
         }
 
-        if(health > maxHealth)
+        if (health > maxHealth)
         {
             health = maxHealth;
         }
+
+        playerhealthTxt.GetComponent<Text>().text = "Health: " + health;
     }
 
     private float CalHealth()

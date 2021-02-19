@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject cam2;
     public GameObject bulletPrefab;
     public GameObject bulletSpawn;
+    //public GameObject healthTxt;
 
 
     public static int spacePressed = 0;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private float gravity = 850f;
     private int tPressed = 0;
     private bool isReloading = false;
+    private bool death = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,13 +35,18 @@ public class PlayerMovement : MonoBehaviour
         cam2.SetActive(false);
 
         animator.SetBool("isIdle", true);
+        
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        PlayerControls();
-
+        if(death == false)
+        {
+            PlayerControls();
+        }
     }
 
     private void PlayerControls()
@@ -118,7 +125,6 @@ public class PlayerMovement : MonoBehaviour
         {
             playerRb.AddForce(Vector3.up * jump, ForceMode.Impulse);
             spacePressed += 1;
-            Debug.Log(spacePressed);
         }
 
 
@@ -175,6 +181,16 @@ public class PlayerMovement : MonoBehaviour
                 //isReloading = false;
             }
         }
+
+        if(PlayerHealth.health == 0)
+        {
+            animator.SetTrigger("triggDeath");
+            
+
+            death = true;
+
+            GameObject.FindGameObjectsWithTag("Enemy");
+        }
     }
 
     private void CameraChange1()
@@ -198,12 +214,8 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam1.transform.position, cam1.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
             Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
-
-            
-        }
-
-        
+        } 
     }
 }

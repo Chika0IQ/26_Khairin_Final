@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyScript : MonoBehaviour
 {
-    public static int enemyHealth = 10;
+    /*public static int enemyHealth = 10;
 
     public float lookingRadius = 2f;
 
@@ -52,7 +52,7 @@ public class EnemyScript : MonoBehaviour
         Quaternion lookRotate = Quaternion.LookRotation(new Vector3(drc.x, 0, drc.z));
         transform.rotation = Quaternion.Slerp(player.rotation, lookRotate, Time.deltaTime * 5f);
 
-        zomAnim.SetBool("isIdle",true);
+        zomAnim.SetBool("isIdle", true);
     }
 
     void OnDrawGizmosSelected()
@@ -64,9 +64,103 @@ public class EnemyScript : MonoBehaviour
 
     private void CheckEnemyHealth()
     {
-        if(enemyHealth <= 0)
+        if (enemyHealth <= 0)
         {
-            //Destroy(this.gameObject);
+            Destroy(this.gameObject);
+        }
+    }*/
+
+    //public Transform soldier;
+    //public Rigidbody zomRigidBody;
+    //public Animator zomAnim;
+
+    //public float moveSpeed;
+    //public float MaxDist;
+    //public float MinDist;
+
+    //void Start()
+    //{
+    //    zomAnim = GetComponent<Animator>();
+
+    //    zomRigidBody = GetComponent<Rigidbody>();
+    //}
+
+    //void Update()
+    //{
+    //    transform.LookAt(soldier);
+
+
+    //    if(Vector3.Distance(transform.position, soldier.position) >= MinDist)
+    //    {
+    //        //transform.position += transform.forward * moveSpeed * Time.deltaTime;
+
+    //        zomAnim.SetBool("isIdle", false);
+    //    }
+
+    //    if(Vector3.Distance(transform.position, soldier.position) >= MaxDist)
+    //    {
+
+    //    }
+
+
+    //    /*Vector3 dirc = soldier.position - transform.position;
+    //    Quaternion rotation = Quaternion.LookRotation(dirc);
+    //    transform.rotation = rotation;*/
+    //}
+
+
+    private NavMeshAgent zomMesh;
+
+    public GameObject Soldier;
+
+    public float zomDistRun = 6.0f;
+
+
+    public Animator zomAnim;
+
+    private void Start()
+    {
+        zomMesh = GetComponent<NavMeshAgent>();
+
+        Soldier = GameObject.FindGameObjectWithTag("Player");
+
+        zomAnim.SetBool("isIdle", true);
+    }
+
+    private void Update()
+    {
+        float dist = Vector3.Distance(transform.position, Soldier.transform.position);
+
+        if(dist < zomDistRun)
+        {
+            Vector3 direcToSoldier = transform.position - Soldier.transform.position;
+
+            Vector3 newPos = transform.position - direcToSoldier;
+
+            zomMesh.SetDestination(newPos);
+
+            zomAnim.SetBool("isIdle", false);
+        }
+        else
+        {
+            zomAnim.SetBool("isIdle", true);
+        }
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            if(EnemyHealth.health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerHealth.health -= 10;
         }
     }
 }
