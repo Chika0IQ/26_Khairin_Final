@@ -31,12 +31,7 @@ public class PlayerHealth : MonoBehaviour
         {
             healthBar.SetActive(true);
         }
-
-        if (health <= 0)
-        {
-            //PlayerMovement.animator.SetBool("isDeath", true);
-        }
-
+        
         if (health > maxHealth)
         {
             health = maxHealth;

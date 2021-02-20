@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class PlayerMovement : MonoBehaviour
     private int tPressed = 0;
     private bool isReloading = false;
     public static bool death = false;
+    private bool stopControls = false;
+    public GameObject ZombsKilledTxt;
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,15 +41,23 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isIdle", true);
 
         audioSource = GetComponent<AudioSource>();
+
+        animator = GetComponent<Animator>();
+
+        death = false;
+
+        EnemyScript.zombsKilled = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(death == false)
+        if(stopControls == false)
         {
             PlayerControls();
         }
+
+        ZombsKilledTxt.GetComponent<Text>().text = "Killed: " + EnemyScript.zombsKilled;
     }
 
     private void PlayerControls()
@@ -173,9 +185,9 @@ public class PlayerMovement : MonoBehaviour
 
         if(PlayerHealth.health == 0)
         {
-            animator.SetTrigger("triggDeath");
-            
-            death = true;
+            EnemyScript.zomFollow = false;
+
+            StartCoroutine(playerDeath());
         }
     }
 
@@ -203,5 +215,16 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log(hit.transform.name);
             Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
         } 
+    }
+
+    private IEnumerator playerDeath()
+    {
+        animator.SetTrigger("triggDeath");
+
+        stopControls = true;
+
+        yield return new WaitForSeconds(2f);
+
+        death = true;
     }
 }

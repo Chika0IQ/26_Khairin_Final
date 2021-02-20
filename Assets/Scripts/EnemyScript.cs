@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyScript : MonoBehaviour
 {
@@ -15,9 +16,11 @@ public class EnemyScript : MonoBehaviour
 
     private bool zomDeath = false;
     private float speed = 2f;
+    public static bool zomFollow = true;
 
     private AudioSource audioSource;
     public AudioClip[] ZomClipArr;
+    public static int zombsKilled = 0;
 
     void Start()
     {
@@ -31,12 +34,16 @@ public class EnemyScript : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
+        //zomsKilledTxt = GameObject.FindGameObjectWithTag("ZombsTxt");
+
         audioSource.PlayOneShot(ZomClipArr[0], 0.1f);
+
+        zomFollow = true;
     }
 
     void Update()
     {
-        if(zomDeath == false)
+        if(zomDeath == false && zomFollow == true)
         {
             ZombieAI();
         }
@@ -71,7 +78,8 @@ public class EnemyScript : MonoBehaviour
         if (zomDeath == true)
         {
             Destroy(gameObject, 3f);
-
+            Destroy(this);
+            zombsKilled += 1;
             zomDeath = false;
         }
     }
