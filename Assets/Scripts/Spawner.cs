@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour
     public float maxX;    // maxX position
     public float minZ;    // minZ position
     public float maxZ;    // maxZ position
+
     // Start is called before the first frame update
     void Start()
     {

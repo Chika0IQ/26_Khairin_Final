@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float rotateSpeed = 950f;
     [SerializeField] private float jump = 7.5f;
 
-
+    private AudioSource audioSource;
 
     public Rigidbody playerRb;
     public Animator animator;
@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject cam2;
     public GameObject bulletPrefab;
     public GameObject bulletSpawn;
-    //public GameObject healthTxt;
+    public AudioClip[] PlayerAudioClipArr;
 
 
     public static int spacePressed = 0;
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private float gravity = 850f;
     private int tPressed = 0;
     private bool isReloading = false;
-    private bool death = false;
+    public static bool death = false;
 
     // Start is called before the first frame update
     void Start()
@@ -35,9 +35,8 @@ public class PlayerMovement : MonoBehaviour
         cam2.SetActive(false);
 
         animator.SetBool("isIdle", true);
-        
 
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -79,17 +78,10 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isIdle", true);
         }
 
-
-
-
-
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.Rotate(new Vector3(0, Time.deltaTime * -rotateSpeed, 0));
         }
-
-
-
 
 
         if (Input.GetKey(KeyCode.S))
@@ -101,7 +93,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isIdle", true);
         }
-
 
 
         if (Input.GetKey(KeyCode.D))
@@ -128,9 +119,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-
-
-
         if (Input.GetKeyDown(KeyCode.T))
         {
             if (tPressed == 0)
@@ -148,6 +136,8 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 animator.SetTrigger("triggShooting");
+
+                audioSource.PlayOneShot(PlayerAudioClipArr[0], 0.2f);
 
                 PlayerShoot();
 
@@ -172,13 +162,12 @@ public class PlayerMovement : MonoBehaviour
                 ammoCount += 15f;
 
                 isReloading = true;
+
+                audioSource.PlayOneShot(PlayerAudioClipArr[1], 0.2f);
             }
             else if (Input.GetKeyUp(KeyCode.R))
             {
-
                 animator.SetTrigger("isIdle");
-
-                //isReloading = false;
             }
         }
 
@@ -186,10 +175,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetTrigger("triggDeath");
             
-
             death = true;
-
-            GameObject.FindGameObjectsWithTag("Enemy");
         }
     }
 
