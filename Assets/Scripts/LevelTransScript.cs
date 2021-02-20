@@ -25,7 +25,7 @@ public class LevelTransScript : MonoBehaviour
             FadeToLevel(2);
         }
 
-        if(Input.GetKey(KeyCode.O))
+        if(EnemyScript.zombsKilled == 10)
         {
             FadeToLevel(3);
         }

@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public GameObject cam1;
     public GameObject cam2;
+    public GameObject cam3;
     public GameObject bulletPrefab;
     public GameObject bulletSpawn;
     public AudioClip[] PlayerAudioClipArr;
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     {
         cam1.SetActive(true);
         cam2.SetActive(false);
+        cam3.SetActive(false);
 
         animator.SetBool("isIdle", true);
 
@@ -57,11 +59,12 @@ public class PlayerMovement : MonoBehaviour
             PlayerControls();
         }
 
-        ZombsKilledTxt.GetComponent<Text>().text = "Killed: " + EnemyScript.zombsKilled;
+        ZombsKilledTxt.GetComponent<Text>().text = "Zombie Killed: " + EnemyScript.zombsKilled;
     }
 
     private void PlayerControls()
     {
+        
         playerRb.AddForce(Vector3.down * Time.deltaTime * gravity);
 
         if (Input.GetKey(KeyCode.W))
@@ -75,7 +78,10 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isIdle", true);
         }
 
-
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            EnemyScript.zombsKilled += 1;
+        }
 
 
         if (Input.GetKey(KeyCode.A))
@@ -187,6 +193,8 @@ public class PlayerMovement : MonoBehaviour
         {
             EnemyScript.zomFollow = false;
 
+            CameraChange3();
+            
             StartCoroutine(playerDeath());
         }
     }
@@ -203,6 +211,15 @@ public class PlayerMovement : MonoBehaviour
     {
         cam1.SetActive(false);
         cam2.SetActive(true);
+
+        tPressed = 0;
+    }
+
+    private void CameraChange3()
+    {
+        cam1.SetActive(false);
+        cam2.SetActive(false);
+        cam3.SetActive(true);
 
         tPressed = 0;
     }

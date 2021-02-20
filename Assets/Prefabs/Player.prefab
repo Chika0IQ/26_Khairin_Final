@@ -445,6 +445,7 @@ MonoBehaviour:
   animator: {fileID: 6022302627407962363}
   cam1: {fileID: 6022302628075450144}
   cam2: {fileID: 6022302628134732061}
+  cam3: {fileID: 8890880242409328905}
   bulletPrefab: {fileID: 6397090832480523920, guid: 839ec181eede3ea41b9b72614adda773,
     type: 3}
   bulletSpawn: {fileID: 6022302627816628517}
@@ -453,6 +454,80 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cd05de770f199d44e9ece2c776be7f26, type: 3}
   range: 100
   ZombsKilledTxt: {fileID: 0}
+--- !u!1 &8890880242409328905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1000516331107337688}
+  - component: {fileID: 3939849081538898072}
+  m_Layer: 0
+  m_Name: Cam3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1000516331107337688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8890880242409328905}
+  m_LocalRotation: {x: 0.29820788, y: 0, z: 0, w: 0.954501}
+  m_LocalPosition: {x: 0, y: 2.208, z: -1.402}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6022302627400470205}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 34.7, y: 0, z: 0}
+--- !u!20 &3939849081538898072
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8890880242409328905}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1001 &6022302627400603035
 PrefabInstance:
   m_ObjectHideFlags: 0
