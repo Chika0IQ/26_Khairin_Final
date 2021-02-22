@@ -99,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             _coinCollected += 5;
+            EnemyScript.zombsKilled += 10;
         }
 
         playerRb.AddForce(Vector3.down * Time.deltaTime * gravity);
@@ -266,9 +267,19 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam1.transform.position, cam1.transform.forward, out hit, range))
         { 
-            if (hit.collider.tag == "Button")
+            if (hit.collider.tag == "Button" && EnemyScript.zombsKilled >= 10)
             {
-                Debug.Log("Oof Button");
+                if(Input.GetKey(KeyCode.F))
+                {
+                    Doors.btnBool = true;
+                }
+            }
+            if (hit.collider.tag == "Button2")
+            {
+                if(Input.GetKey(KeyCode.F))
+                {
+                    Doors2.btnBool2 = true;
+                }
             }
         }
     }
@@ -280,7 +291,6 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator playerDeath()
     {
-
         CameraChange3();
         stopControls = true;
         yield return new WaitForSeconds(2f);

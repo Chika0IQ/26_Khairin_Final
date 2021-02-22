@@ -119,7 +119,7 @@ AnimatorStateMachine:
     m_Position: {x: 140, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5159064956831646163}
-    m_Position: {x: -80, y: -90, z: 0}
+    m_Position: {x: -120, y: -100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3263569550519669902}
     m_Position: {x: -20, y: 160, z: 0}
@@ -128,7 +128,7 @@ AnimatorStateMachine:
     m_Position: {x: -260, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6702679579655770788}
-    m_Position: {x: 170, y: -80, z: 0}
+    m_Position: {x: 170, y: -70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5624833105005041488}
     m_Position: {x: -270, y: 10, z: 0}
@@ -140,7 +140,7 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: -50, y: -190, z: 0}
+  m_AnyStatePosition: {x: 0, y: -170, z: 0}
   m_EntryPosition: {x: -320, y: -70, z: 0}
   m_ExitPosition: {x: -230, y: -340, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
@@ -815,37 +815,37 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: triggReloading
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isIdle
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isWalkLeft
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isWalkRight
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: triggDeath
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

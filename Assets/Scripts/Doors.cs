@@ -5,41 +5,71 @@ using UnityEngine;
 public class Doors : MonoBehaviour
 {
 
+    private float speed = 1f;
 
-    private float speed = 3f;
-    private float xlimit;
-    private float currentPos;
-    private float _limit;
-
-
+    public static bool btnBool = false;
+    private bool _leftlimit = false;
+    private bool _rightlimit = false;
     public GameObject _leftDoor;
     public GameObject _rightDoor;
+
+    public GameObject button;
+ 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        Move();
+    }
 
+    public void Move()
+    {
+        FirstMoveDoor();
+    }
 
-        if(Input.GetKey(KeyCode.L))
+    private void FirstMoveDoor()
+    {
+        if (btnBool == true)
         {
-            Move();
+            RightMove();
+            LeftMove();
+        }
+        if (_leftlimit && _rightlimit)
+        {
+            StartCoroutine(btnDestroy());
         }
     }
 
-    private void Move()
+   
+
+    private void LeftMove()
     {
-        _rightDoor.transform.Translate(Vector3.right * speed * Time.deltaTime);
-        _leftDoor.transform.Translate(Vector3.right * speed * Time.deltaTime);
+        if (_leftDoor.transform.position.x > -6.2)
+        {
+            _leftDoor.transform.Translate(Vector3.right * speed * Time.deltaTime);
+            _leftlimit = true;
+        }
     }
 
-    private void MoveLeft()
+    private void RightMove()
     {
-        
+        if (_rightDoor.transform.position.x < 5.576f)
+        {
+            _rightDoor.transform.Translate(Vector3.right * Time.deltaTime * speed);
+            _rightlimit = true;
+        }
+    }
+
+    
+    public IEnumerator btnDestroy()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(button);
     }
 }
