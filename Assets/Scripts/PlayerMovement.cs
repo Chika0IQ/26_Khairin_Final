@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10f;
-    [SerializeField] private float rotateSpeed = 950f;
     [SerializeField] private float jump = 7.5f;
 
     private AudioSource audioSource;
 
+    public GameObject playerPrefab;
     public Rigidbody playerRb;
     public Animator animator;
     public GameObject cam1;
@@ -18,37 +18,56 @@ public class PlayerMovement : MonoBehaviour
     public GameObject cam3;
     public GameObject bulletPrefab;
     public GameObject bulletSpawn;
+    public GameObject ZombsKilledTxt;
     public AudioClip[] PlayerAudioClipArr;
-
+    public Light FleshLight;
 
     public static int spacePressed = 0;
-    public static float ammoCount = 15f;
+    public static float ammoCount = 20f;
+    public static float rotateSpeed = 1000f;
+    public static bool death = false;
+    public static int _coinCollected = 0;
+
     public float range = 100f;
 
     private float gravity = 850f;
     private int tPressed = 0;
     private bool isReloading = false;
-    public static bool death = false;
     private bool stopControls = false;
-    public GameObject ZombsKilledTxt;
+    private bool fleshOn = false;
+    
 
-
+    public PauseMenuScript _pauseMenu;
     // Start is called before the first frame update
     void Start()
     {
+        rotateSpeed = 1000f;
+
         cam1.SetActive(true);
         cam2.SetActive(false);
         cam3.SetActive(false);
 
         animator.SetBool("isIdle", true);
 
+        playerRb = GetComponent<Rigidbody>();
+
         audioSource = GetComponent<AudioSource>();
 
         animator = GetComponent<Animator>();
 
+        _pauseMenu = FindObjectOfType<PauseMenuScript>();
+
+        ZombsKilledTxt = GameObject.FindWithTag("ZombsKilledTxt");
+
         death = false;
 
+        stopControls = false;
+
         EnemyScript.zombsKilled = 0;
+
+        _coinCollected = 0;
+
+        ammoCount = 20f;
     }
 
     // Update is called once per frame
@@ -60,29 +79,39 @@ public class PlayerMovement : MonoBehaviour
         }
 
         ZombsKilledTxt.GetComponent<Text>().text = "Zombie Killed: " + EnemyScript.zombsKilled;
+
+        PlayerRaycast();
     }
 
     private void PlayerControls()
     {
-        
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            EnemyScript.zombsKilled += 1;
+        }
+
+        if (Input.GetKey(KeyCode.P))
+        {
+            PlayerHealth.health = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            _coinCollected += 5;
+        }
+
         playerRb.AddForce(Vector3.down * Time.deltaTime * gravity);
 
         if (Input.GetKey(KeyCode.W))
         {
             transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-
             animator.SetBool("isIdle", false);
         }
         else if (Input.GetKeyUp(KeyCode.W))
         {
             animator.SetBool("isIdle", true);
         }
-
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            EnemyScript.zombsKilled += 1;
-        }
-
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -96,12 +125,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isIdle", true);
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.Rotate(new Vector3(0, Time.deltaTime * -rotateSpeed, 0));
-        }
-
-
         if (Input.GetKey(KeyCode.S))
         {
             transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
@@ -111,7 +134,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isIdle", true);
         }
-
 
         if (Input.GetKey(KeyCode.D))
         {
@@ -124,7 +146,10 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isIdle", true);
         }
 
-
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.Rotate(new Vector3(0, Time.deltaTime * -rotateSpeed, 0));
+        }
         if (Input.GetKey(KeyCode.RightArrow))
         {
             transform.Rotate(new Vector3(0, Time.deltaTime * rotateSpeed, 0));
@@ -149,7 +174,20 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (ammoCount <= 15 & ammoCount != 0 & isReloading == false)
+        if(Input.GetKeyDown(KeyCode.C) && fleshOn == true)
+        { 
+            FleshLight.enabled = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.C) && fleshOn == false)
+        {
+            FleshLight.enabled = false;
+        }
+        else
+        {
+            fleshOn = !fleshOn;
+        }
+
+        if (ammoCount <= 20 & ammoCount != 0 & isReloading == false)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -163,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (Input.GetKeyUp(KeyCode.Q))
             {
-                //animator.SetBool("triggShooting", true);
+
             }
         }
         else if (isReloading == true)
@@ -171,33 +209,27 @@ public class PlayerMovement : MonoBehaviour
             isReloading = false;
         }
 
-        if(ammoCount <= 0)
-        {
-            if(Input.GetKey(KeyCode.R))
-            {
-                animator.SetTrigger("triggReloading");
-
-                ammoCount += 15f;
-
-                isReloading = true;
-
-                audioSource.PlayOneShot(PlayerAudioClipArr[1], 0.2f);
-            }
-            else if (Input.GetKeyUp(KeyCode.R))
-            {
-                animator.SetTrigger("isIdle");
-            }
-        }
-
         if(PlayerHealth.health == 0)
         {
             EnemyScript.zomFollow = false;
 
-            CameraChange3();
-            
+            animator.SetTrigger("triggDeath");
+
             StartCoroutine(playerDeath());
         }
+
+        if (PurchaseAmmo.addedAmmo == true)
+        {
+            animator.SetTrigger("triggReloading");
+
+            isReloading = true;
+
+            audioSource.PlayOneShot(PlayerAudioClipArr[1], 0.2f);
+
+            PurchaseAmmo.addedAmmo = false;
+        }
     }
+
 
     private void CameraChange1()
     {
@@ -226,22 +258,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void PlayerShoot()
     {
+        Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
+    }
+
+    private void PlayerRaycast()
+    {
         RaycastHit hit;
         if (Physics.Raycast(cam1.transform.position, cam1.transform.forward, out hit, range))
-        {
-            //Debug.Log(hit.transform.name);
-            Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
-        } 
+        { 
+            if (hit.collider.tag == "Button")
+            {
+                Debug.Log("Oof Button");
+            }
+        }
+    }
+
+    public void SetSens(float _sensitivity)
+    {
+        rotateSpeed = _sensitivity;
     }
 
     private IEnumerator playerDeath()
     {
-        animator.SetTrigger("triggDeath");
 
+        CameraChange3();
         stopControls = true;
-
         yield return new WaitForSeconds(2f);
-
         death = true;
+        yield return new WaitForSeconds(2f);
+        Destroy(playerPrefab);
     }
 }

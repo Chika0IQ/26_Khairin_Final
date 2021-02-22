@@ -7,7 +7,7 @@ public class PauseMenuScript : MonoBehaviour
 {
 
     public static bool GamePaused = false;
-
+    private bool isMuted;
 
     public GameObject pauseMenuUI;
     public Slider volSlider;
@@ -24,13 +24,13 @@ public class PauseMenuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(GamePaused)
+            if (GamePaused)
             {
                 Resume();
             }
-            else
+            else if (ShopUIScript.shopPaused == false)
             {
                 Pause();
             }
@@ -49,21 +49,16 @@ public class PauseMenuScript : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GamePaused = true;
-        if(GamePaused == true)
-        {
-            if (!muteChk.isOn)
-            {
-                Debug.Log("NotChecked");
-                
-            }
-            if(muteChk.isOn)
-            {
-                Debug.Log("Checked");
-                bgmAudio.mute = !bgmAudio.mute;
-            }
-        }
-        
     }
 
+    public void BgmMute()
+    {
+        isMuted = !isMuted;
+        AudioListener.pause = isMuted;
+    }
 
+    public void SetVol(float vol)
+    {
+        AudioListener.volume = vol;
+    }
 }

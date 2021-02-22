@@ -7,6 +7,13 @@ TagManager:
   - Floor
   - Enemy
   - Bullet
+  - MovingPlat2
+  - MovingPlat3
+  - ZombsKilledTxt
+  - Boundary
+  - Button
+  - Coin
+  - coinsTxt
   layers:
   - Default
   - TransparentFX

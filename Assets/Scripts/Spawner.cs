@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Destroy(gameObject, 10f);
     }
 
     private IEnumerator WaitAndSpawn(float waittime)

@@ -15,12 +15,15 @@ public class EnemyScript : MonoBehaviour
     public float zomDistRun = 6.0f;
 
     private bool zomDeath = false;
-    private float speed = 2f;
     public static bool zomFollow = true;
+    public static int zombsKilled = 0;
+
 
     private AudioSource audioSource;
     public AudioClip[] ZomClipArr;
-    public static int zombsKilled = 0;
+    public Transform coinPrefab;
+    public Vector3 coinSpawnPoint;
+    
 
     void Start()
     {
@@ -34,15 +37,17 @@ public class EnemyScript : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
-        //zomsKilledTxt = GameObject.FindGameObjectWithTag("ZombsTxt");
-
         audioSource.PlayOneShot(ZomClipArr[0], 0.1f);
 
         zomFollow = true;
+
+        coinSpawnPoint = transform.position;
     }
 
     void Update()
     {
+
+
         if(zomDeath == false && zomFollow == true)
         {
             ZombieAI();
@@ -81,6 +86,8 @@ public class EnemyScript : MonoBehaviour
             Destroy(this);
             zombsKilled += 1;
             zomDeath = false;
+
+            Instantiate(coinPrefab, coinSpawnPoint, Quaternion.identity);
         }
     }
 
@@ -103,6 +110,11 @@ public class EnemyScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerHealth.health -= 10;
+        }
+
+        if(collision.gameObject.CompareTag("Boundary"))
+        {
+            Destroy(gameObject);
         }
     }
 }

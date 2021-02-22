@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2050699632194066257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5060263168298589355}
+  m_Layer: 0
+  m_Name: CoinSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5060263168298589355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050699632194066257}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7161490327534449013}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2353936523520477965
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,6 +485,7 @@ Transform:
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 4228164098782389614}
+  - {fileID: 5060263168298589355}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -604,7 +635,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &7417708862187002776
 Animator:
@@ -642,6 +673,9 @@ MonoBehaviour:
   zomDistRun: 6
   ZomClipArr:
   - {fileID: 8300000, guid: c5287f7d374ac334f80eff2505b2e0f0, type: 3}
+  coinPrefab: {fileID: 190060297739483988, guid: 7433a03665cb5d3419027d71d8657079,
+    type: 3}
+  coinSpawnPoint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3552837039204551040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -731,15 +765,15 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: d99946f56cb82344f9983a57c0551c73, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b14953694d54eea4eb66f453e525024c, type: 3}
---- !u!1 &4228164098782427406 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 856601670117699726, guid: b14953694d54eea4eb66f453e525024c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3552837039204551040}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4228164098782389614 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 856601670117272814, guid: b14953694d54eea4eb66f453e525024c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3552837039204551040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4228164098782427406 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 856601670117699726, guid: b14953694d54eea4eb66f453e525024c,
     type: 3}
   m_PrefabInstance: {fileID: 3552837039204551040}
   m_PrefabAsset: {fileID: 0}

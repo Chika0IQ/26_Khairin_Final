@@ -15,6 +15,7 @@ public class AudioManagerScript : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         audioSource.PlayOneShot(AudioClipArr[0], 0.1f);
+        audioSource.enabled = true;
     }
 
     // Update is called once per frame

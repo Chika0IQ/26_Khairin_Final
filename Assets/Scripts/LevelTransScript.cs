@@ -27,7 +27,7 @@ public class LevelTransScript : MonoBehaviour
 
         if(EnemyScript.zombsKilled == 10)
         {
-            FadeToLevel(3);
+            //FadeToLevel(3);
         }
     }
 
