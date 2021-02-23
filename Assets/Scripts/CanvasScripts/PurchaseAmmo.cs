@@ -21,7 +21,7 @@ public class PurchaseAmmo : MonoBehaviour
 
     public void PurchseAmmo()
     {
-        if (PlayerMovement._coinCollected >= 5 && PlayerMovement.ammoCount <= 0)
+        if (PlayerMovement._coinCollected >= 3 && PlayerMovement.ammoCount <= 0)
         {
             PlayerMovement.ammoCount = 20f;
             addedAmmo = true;
@@ -29,7 +29,7 @@ public class PurchaseAmmo : MonoBehaviour
 
         if(addedAmmo == true)
         {
-            PlayerMovement._coinCollected -= 5;
+            PlayerMovement._coinCollected -= 3;
         }
     }
 }

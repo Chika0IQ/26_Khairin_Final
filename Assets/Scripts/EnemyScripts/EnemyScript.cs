@@ -11,6 +11,10 @@ public class EnemyScript : MonoBehaviour
 
     public GameObject Soldier;
     public Animator zomAnim;
+    public AudioClip[] ZomClipArr;
+    public GameObject coinPrefab;
+    public Vector3 coinSpawnPoint;
+    public static GameObject coinClone;
 
     public float zomDistRun = 6.0f;
 
@@ -20,9 +24,7 @@ public class EnemyScript : MonoBehaviour
 
 
     private AudioSource audioSource;
-    public AudioClip[] ZomClipArr;
-    public Transform coinPrefab;
-    public Vector3 coinSpawnPoint;
+    
     
 
     void Start()
@@ -74,7 +76,8 @@ public class EnemyScript : MonoBehaviour
 
         if (dist > zomDistRun)
         {
-            zomAnim.SetBool("isWalk",false);
+            //zomAnim.GetComponent<Animator>();
+            //zomAnim.SetBool("isWalk", false);
         }
     }
 
@@ -87,7 +90,9 @@ public class EnemyScript : MonoBehaviour
             zombsKilled += 1;
             zomDeath = false;
 
-            Instantiate(coinPrefab, coinSpawnPoint, Quaternion.identity);
+            coinClone = Instantiate(coinPrefab, coinSpawnPoint, Quaternion.identity);
+
+            Destroy(coinClone, 6f);
         }
     }
 

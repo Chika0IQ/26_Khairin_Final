@@ -21,4 +21,12 @@ public class HealingOrbScript : MonoBehaviour
         transform.Rotate(new Vector3(0, spinSpeed * Time.deltaTime, 0));
         transform.position = new Vector3(transform.position.x, myCurve.Evaluate((Time.time % myCurve.length)), transform.position.z);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            PlayerHealth.health = 100;
+        }
+    }
 }

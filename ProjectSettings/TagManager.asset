@@ -16,6 +16,13 @@ TagManager:
   - coinsTxt
   - MovingDoor
   - Button2
+  - HealingOrb
+  - TeleportEnd
+  - TransLevel
+  - Level2StartFloor
+  - ZombSpawner
+  - ZombSpawner2
+  - BossHealth
   layers:
   - Default
   - TransparentFX

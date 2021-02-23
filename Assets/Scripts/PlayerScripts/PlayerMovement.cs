@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject ZombsKilledTxt;
     public AudioClip[] PlayerAudioClipArr;
     public Light FleshLight;
+    public GameObject _lvlTransScript;
+    public PauseMenuScript _pauseMenu;
+    public GameObject enemySpawner;
+    public GameObject enemySpawner2;
+    public GameObject btnWarning;
 
     public static int spacePressed = 0;
     public static float ammoCount = 20f;
@@ -28,16 +34,13 @@ public class PlayerMovement : MonoBehaviour
     public static bool death = false;
     public static int _coinCollected = 0;
 
-    public float range = 100f;
-
+    private float range = 100f;
     private float gravity = 850f;
     private int tPressed = 0;
     private bool isReloading = false;
     private bool stopControls = false;
     private bool fleshOn = false;
-    
 
-    public PauseMenuScript _pauseMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
         cam1.SetActive(true);
         cam2.SetActive(false);
         cam3.SetActive(false);
+
+        enemySpawner.SetActive(true);
 
         animator.SetBool("isIdle", true);
 
@@ -68,6 +73,16 @@ public class PlayerMovement : MonoBehaviour
         _coinCollected = 0;
 
         ammoCount = 20f;
+
+        _lvlTransScript = GameObject.FindWithTag("TransLevel");
+
+        enemySpawner = GameObject.FindWithTag("ZombSpawner");
+
+        enemySpawner2 = GameObject.FindWithTag("ZombSpawner2");
+
+        btnWarning.SetActive(false);
+
+       enemySpawner2.SetActive(true);
     }
 
     // Update is called once per frame
@@ -81,6 +96,24 @@ public class PlayerMovement : MonoBehaviour
         ZombsKilledTxt.GetComponent<Text>().text = "Zombie Killed: " + EnemyScript.zombsKilled;
 
         PlayerRaycast();
+
+        if(BossScript._bossHealth <= 0f)
+        {
+            enemySpawner2.SetActive(false);
+        }
+
+
+        if(playerPrefab.transform.position.y < -1.9f)
+        {
+            SceneManager.LoadScene("LoseScene");
+        }
+
+        if(PlayerHealth.health == 0)
+        {
+            SceneManager.LoadScene("LoseScene");
+        }
+
+
     }
 
     private void PlayerControls()
@@ -100,6 +133,12 @@ public class PlayerMovement : MonoBehaviour
         {
             _coinCollected += 5;
             EnemyScript.zombsKilled += 10;
+        }
+
+        if(Input.GetKey(KeyCode.N))
+        {
+            BossScript._bossHealth = 0f;
+            BossScript.bossDeath = true;
         }
 
         playerRb.AddForce(Vector3.down * Time.deltaTime * gravity);
@@ -231,7 +270,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
     private void CameraChange1()
     {
         cam1.SetActive(true);
@@ -274,6 +312,14 @@ public class PlayerMovement : MonoBehaviour
                     Doors.btnBool = true;
                 }
             }
+            else if(hit.collider.tag == "Button" && EnemyScript.zombsKilled <= 10)
+            {
+                if(Input.GetKey(KeyCode.F))
+                {
+                    StartCoroutine(_btnWarningWait());
+                }
+            }
+
             if (hit.collider.tag == "Button2")
             {
                 if(Input.GetKey(KeyCode.F))
@@ -296,6 +342,43 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(2f);
         death = true;
         yield return new WaitForSeconds(2f);
-        Destroy(playerPrefab);
+        //Destroy(playerPrefab);
+    }
+
+    private IEnumerator _teleportEnd()
+    {
+        yield return new WaitForSeconds(0.3f);
+        SceneManager.LoadScene("WinScene");
+
+    }
+
+    private IEnumerator _btnWarningWait()
+    {
+        btnWarning.SetActive(true);
+
+        yield return new WaitForSeconds(3f);
+
+        btnWarning.SetActive(false);
+    }
+
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("TeleportEnd"))
+        {
+            StartCoroutine(_teleportEnd());
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Level2StartFloor"))
+        {
+            enemySpawner.SetActive(false);
+            Destroy(Spawner.enemyPrefabClone);
+            BossScript.bossFollow = true;
+            enemySpawner2.SetActive(true);
+        }
     }
 }

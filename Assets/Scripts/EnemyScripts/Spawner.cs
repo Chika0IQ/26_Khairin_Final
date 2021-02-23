@@ -7,6 +7,8 @@ public class Spawner : MonoBehaviour
     public GameObject enemyPrefab;  // EnemyPrefab
     public float spawnInterval;     // Interval between each spawn
 
+    public static GameObject enemyPrefabClone;
+
     //Spawn Area
     public float minX;    // minX position
     public float maxX;    // maxX position
@@ -22,7 +24,7 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Destroy(gameObject, 10f);
+
     }
 
     private IEnumerator WaitAndSpawn(float waittime)
@@ -33,7 +35,9 @@ public class Spawner : MonoBehaviour
 
             Vector3 spawnPosition = new Vector3(Random.Range(minX, maxX), 0.5f, Random.Range(minZ, maxZ));
 
-            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            enemyPrefabClone = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity) as GameObject;
+
+            Destroy(enemyPrefabClone, 18f);
         }
     }
 }

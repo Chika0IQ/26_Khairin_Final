@@ -19,34 +19,11 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {
         health = maxHealth;
-        slider.value = CalHealth();
     }
 
     // Update is called once per frame
     void Update()
     {
-        slider.value = CalHealth();
-
-        Debug.Log(health);
-
-        if(health < maxHealth)
-        {
-            healthBar.SetActive(true);
-        }
-
-        if(health <= 0)
-        {
-            //Destroy(gameObject);
-        }
-
-        if(health > maxHealth)
-        {
-            health = maxHealth;
-        }
-    }
-
-    private float CalHealth()
-    {
-        return health / maxHealth;
+        
     }
 }

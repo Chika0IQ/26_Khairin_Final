@@ -670,12 +670,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Soldier: {fileID: 6022302628154788464, guid: 075b09671de5b5c489b52646309d29de, type: 3}
   zomAnim: {fileID: 7417708862187002776}
-  zomDistRun: 6
   ZomClipArr:
   - {fileID: 8300000, guid: c5287f7d374ac334f80eff2505b2e0f0, type: 3}
-  coinPrefab: {fileID: 190060297739483988, guid: 7433a03665cb5d3419027d71d8657079,
+  coinPrefab: {fileID: 190060297739483983, guid: 7433a03665cb5d3419027d71d8657079,
     type: 3}
   coinSpawnPoint: {x: 0, y: 0, z: 0}
+  zomDistRun: 6
 --- !u!1001 &3552837039204551040
 PrefabInstance:
   m_ObjectHideFlags: 0

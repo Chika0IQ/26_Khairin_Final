@@ -19,7 +19,9 @@ public class Doors : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        _leftlimit = false;
+        _rightlimit = false;
+        button.SetActive(true);
     }
 
     // Update is called once per frame
@@ -27,7 +29,7 @@ public class Doors : MonoBehaviour
     {
         Move();
     }
-
+   
     public void Move()
     {
         FirstMoveDoor();
@@ -69,7 +71,13 @@ public class Doors : MonoBehaviour
     
     public IEnumerator btnDestroy()
     {
+        LeftMove();
+        RightMove();
+
         yield return new WaitForSeconds(2f);
-        Destroy(button);
+
+        btnBool = false;
+
+        button.SetActive(false);
     }
 }

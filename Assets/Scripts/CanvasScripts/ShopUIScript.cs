@@ -28,8 +28,6 @@ public class ShopUIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //_coinsTxt = GameObject.FindWithTag("coinsTxt");
         CoinsCollected();
         if (Input.GetKeyDown(KeyCode.B))
         {
