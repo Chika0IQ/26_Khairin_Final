@@ -88,6 +88,8 @@ public class BossScript : MonoBehaviour
     {
         if (bossDeath == true)
         {
+            audioSource.PlayOneShot(ZomClipArr[1], 0.1f);
+
             Destroy(gameObject, 3f);
             Destroy(this);
 
@@ -102,6 +104,11 @@ public class BossScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             _bossHealth -= 1;
+        }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerHealth.health -= 10;
         }
     }
 }

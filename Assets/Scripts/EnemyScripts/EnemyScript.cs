@@ -85,6 +85,9 @@ public class EnemyScript : MonoBehaviour
     {
         if (zomDeath == true)
         {
+            audioSource.PlayOneShot(ZomClipArr[1], 0.1f);
+
+
             Destroy(gameObject, 3f);
             Destroy(this);
             zombsKilled += 1;

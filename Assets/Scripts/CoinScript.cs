@@ -7,6 +7,7 @@ public class CoinScript : MonoBehaviour
 
     public float spinSpeed;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,7 @@ public class CoinScript : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            
             Destroy(gameObject);
 
             PlayerMovement._coinCollected += 1;

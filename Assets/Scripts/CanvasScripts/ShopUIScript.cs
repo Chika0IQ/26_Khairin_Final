@@ -8,16 +8,18 @@ public class ShopUIScript : MonoBehaviour
 
     public GameObject _coinsTxt;
     public GameObject _shopMenuUI;
-
     public PlayerMovement playerScript;
 
     public static bool shopPaused = false;
 
-
-
+    public AudioClip[] audioClipArr;
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
+
+        audioSource = GetComponent<AudioSource>();
+
         _coinsTxt = GameObject.FindWithTag("coinsTxt");
 
         CoinsCollected();
@@ -52,6 +54,7 @@ public class ShopUIScript : MonoBehaviour
 
     public void Pause()//Pause Game
     {
+        audioSource.PlayOneShot(audioClipArr[0], 0.2f);
         _shopMenuUI.SetActive(true);
         Time.timeScale = 0f;
         shopPaused = true;

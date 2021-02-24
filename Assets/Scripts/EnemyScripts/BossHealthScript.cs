@@ -48,7 +48,15 @@ public class BossHealthScript : MonoBehaviour
             BossScript.bossDeath = true;
         }
 
-        bosshealthTxt.GetComponent<Text>().text = "Boss Health: " + bossHealth;
+        if(BossScript.bossDeath == false)
+        {
+            bosshealthTxt.GetComponent<Text>().text = "Boss Health: " + bossHealth;
+        }
+        else if (BossScript.bossDeath == true)
+        {
+            bossHealthUI.SetActive(false);
+        }
+
     }
 
     private float CalHealth()

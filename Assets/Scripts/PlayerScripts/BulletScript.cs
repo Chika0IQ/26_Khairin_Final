@@ -24,5 +24,10 @@ public class BulletScript : MonoBehaviour
         {
             EnemyHealth.health -= 10;
         }
+
+        if(collision.gameObject.CompareTag("BossTorso"))
+        {
+            BossScript._bossHealth -= 2;
+        }
     }
 }

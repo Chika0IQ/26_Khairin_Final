@@ -23,6 +23,7 @@ TagManager:
   - ZombSpawner
   - ZombSpawner2
   - BossHealth
+  - BossTorso
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - PP
   - 
   - 
   - 

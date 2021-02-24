@@ -18,7 +18,7 @@ public class PauseMenuScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //bgmAudio = GameObject.FindGameObjectWithTag("BgmAudio");
+        //bgmAudio = GameObject.FindGameObjectWithTag("BgmAudio;
     }
 
     // Update is called once per frame

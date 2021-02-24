@@ -5,12 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    private Scene _gameScene;
-
+    
     // Start is called before the first frame update
     void Start()
     {
-
+       
     }
 
     // Update is called once per frame
@@ -30,10 +29,5 @@ public class SceneController : MonoBehaviour
     public void GotoStartScene()
     {
         SceneManager.LoadScene("Start");
-    }
-
-    public void ReloadGameScene()
-    {
-        //Application.LoadLevel(_gameScene.name);
     }
 }

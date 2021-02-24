@@ -672,6 +672,7 @@ MonoBehaviour:
   zomAnim: {fileID: 7417708862187002776}
   ZomClipArr:
   - {fileID: 8300000, guid: c5287f7d374ac334f80eff2505b2e0f0, type: 3}
+  - {fileID: 8300000, guid: 165b8818351980148a3c41e9f76fd5be, type: 3}
   coinPrefab: {fileID: 190060297739483983, guid: 7433a03665cb5d3419027d71d8657079,
     type: 3}
   coinSpawnPoint: {x: 0, y: 0, z: 0}

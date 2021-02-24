@@ -6,11 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 10f;
-    [SerializeField] private float jump = 7.5f;
+    
 
     private AudioSource audioSource;
-
     public GameObject playerPrefab;
     public Rigidbody playerRb;
     public Animator animator;
@@ -27,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject enemySpawner;
     public GameObject enemySpawner2;
     public GameObject btnWarning;
+    public ParticleSystem muzzleFlash;
 
     public static int spacePressed = 0;
     public static float ammoCount = 20f;
@@ -34,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
     public static bool death = false;
     public static int _coinCollected = 0;
 
+    private float moveSpeed = 5f;
+    private float jump = 7.5f;
     private float range = 100f;
     private float gravity = 850f;
     private int tPressed = 0;
@@ -44,45 +45,38 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        Time.timeScale = 1f;
+
         rotateSpeed = 1000f;
 
         cam1.SetActive(true);
         cam2.SetActive(false);
         cam3.SetActive(false);
-
         enemySpawner.SetActive(true);
+        btnWarning.SetActive(false);
+        enemySpawner2.SetActive(true);
 
         animator.SetBool("isIdle", true);
 
         playerRb = GetComponent<Rigidbody>();
-
         audioSource = GetComponent<AudioSource>();
-
         animator = GetComponent<Animator>();
-
         _pauseMenu = FindObjectOfType<PauseMenuScript>();
 
+
         ZombsKilledTxt = GameObject.FindWithTag("ZombsKilledTxt");
-
-        death = false;
-
-        stopControls = false;
+        _lvlTransScript = GameObject.FindWithTag("TransLevel");
+        enemySpawner = GameObject.FindWithTag("ZombSpawner");
+        enemySpawner2 = GameObject.FindWithTag("ZombSpawner2");
 
         EnemyScript.zombsKilled = 0;
 
+        death = false;
+        stopControls = false;
+
         _coinCollected = 0;
-
         ammoCount = 20f;
-
-        _lvlTransScript = GameObject.FindWithTag("TransLevel");
-
-        enemySpawner = GameObject.FindWithTag("ZombSpawner");
-
-        enemySpawner2 = GameObject.FindWithTag("ZombSpawner2");
-
-        btnWarning.SetActive(false);
-
-       enemySpawner2.SetActive(true);
     }
 
     // Update is called once per frame
@@ -90,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(stopControls == false)
         {
-            PlayerControls();
+            PlayerInputs();
         }
 
         ZombsKilledTxt.GetComponent<Text>().text = "Zombie Killed: " + EnemyScript.zombsKilled;
@@ -108,15 +102,12 @@ public class PlayerMovement : MonoBehaviour
             SceneManager.LoadScene("LoseScene");
         }
 
-        if(PlayerHealth.health == 0)
+        if(death == true)
         {
             SceneManager.LoadScene("LoseScene");
         }
-
-
     }
-
-    private void PlayerControls()
+    private void PlayerInputs()
     {
 
         if (Input.GetKeyDown(KeyCode.I))
@@ -298,6 +289,7 @@ public class PlayerMovement : MonoBehaviour
     private void PlayerShoot()
     {
         Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
+        muzzleFlash.Play();
     }
 
     private void PlayerRaycast()
@@ -337,12 +329,12 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator playerDeath()
     {
+
+        audioSource.PlayOneShot(PlayerAudioClipArr[2], 0.2f);
         CameraChange3();
         stopControls = true;
         yield return new WaitForSeconds(2f);
         death = true;
-        yield return new WaitForSeconds(2f);
-        //Destroy(playerPrefab);
     }
 
     private IEnumerator _teleportEnd()
