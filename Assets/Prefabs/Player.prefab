@@ -88,7 +88,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 8.6e-43, y: 7.1e-44, z: 0, w: -9.510144e-10}
+  m_BoundingSphereOverride: {x: 1, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -844,8 +844,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e088b0177ac554bb1e3ffb2349807b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jump: 7.5
   playerPrefab: {fileID: 6022302628154788464}
   playerRb: {fileID: 6022302628154788466}
   animator: {fileID: 6022302627407962363}
@@ -916,7 +914,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1

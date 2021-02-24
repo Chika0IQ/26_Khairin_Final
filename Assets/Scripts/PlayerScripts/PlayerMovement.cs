@@ -106,6 +106,12 @@ public class PlayerMovement : MonoBehaviour
         {
             SceneManager.LoadScene("LoseScene");
         }
+
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            animator.SetTrigger("triggDeath");
+            cam3.SetActive(true);
+        }
     }
     private void PlayerInputs()
     {
