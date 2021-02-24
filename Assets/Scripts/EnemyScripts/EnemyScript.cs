@@ -33,7 +33,7 @@ public class EnemyScript : MonoBehaviour
 
         Soldier = GameObject.FindGameObjectWithTag("Player");
 
-        zomAnim = FindObjectOfType<Animator>();
+        zomAnim = GetComponent<Animator>();
         
         zomAnim.SetBool("isWalk", false);
 
