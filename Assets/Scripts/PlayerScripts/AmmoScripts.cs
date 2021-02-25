@@ -7,7 +7,7 @@ public class AmmoScripts : MonoBehaviour
 {
 
 
-    public GameObject ammoTxt;
+    public GameObject ammoTxt;// Set the ammoTxt as a GameObject
 
     //public PlayerMovement ammo;
 
@@ -22,6 +22,7 @@ public class AmmoScripts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Set the ammoTxt with reference from PlayerMovement ammoCount
         ammoTxt.GetComponent<Text>().text = "Ammo: " + PlayerMovement.ammoCount;
     }
 }

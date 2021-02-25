@@ -5,7 +5,7 @@ using UnityEngine;
 public class CoinScript : MonoBehaviour
 {
 
-    public float spinSpeed;
+    public float spinSpeed;// Set the spinSpeed of the coin
 
     
     // Start is called before the first frame update
@@ -17,17 +17,16 @@ public class CoinScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(new Vector3(spinSpeed * Time.deltaTime, 0, 0));
+        transform.Rotate(new Vector3(spinSpeed * Time.deltaTime, 0, 0));// Rotate the coin when spawned
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // Checks if colliding with the player
         if(other.gameObject.CompareTag("Player"))
         {
-            
-            Destroy(gameObject);
-
-            PlayerMovement._coinCollected += 1;
+            Destroy(gameObject);// Destory the coin if colliding 
+            PlayerMovement._coinCollected += 1;// Add 1 to the coinCollected in the playerMovement
         }
     }
 }

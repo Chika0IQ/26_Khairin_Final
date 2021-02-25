@@ -6,14 +6,12 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
 
-    public static float health;
-    public static float maxHealth = 100;
+    public static float health; // Set the health variable of the player 
+    public static float maxHealth = 100;// Set the max health of the player to 100
 
-    public GameObject healthBar;
-    public Slider slider;
-
-    public GameObject playerhealthTxt;
-
+    public GameObject playerhealthTxt;// Set the the playerHealthTxt as a GameObject
+    public GameObject healthBar;// Set the health bar as a GameObject
+    public Slider slider;// Set the slider for the player heatlh
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +38,7 @@ public class PlayerHealth : MonoBehaviour
         playerhealthTxt.GetComponent<Text>().text = "Health: " + health;
     }
 
+    // Calhealth Function
     private float CalHealth()
     {
         return health / maxHealth;

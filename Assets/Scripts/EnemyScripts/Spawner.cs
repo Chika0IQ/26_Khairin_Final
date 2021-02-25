@@ -18,7 +18,7 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(WaitAndSpawn(spawnInterval));
+        StartCoroutine(WaitAndSpawn(spawnInterval));// Call the WaitAndSpawn Coroutine FUnction
     }
 
     // Update is called once per frame
@@ -27,6 +27,7 @@ public class Spawner : MonoBehaviour
 
     }
 
+    // Wait and Spawn Coroutine Function
     private IEnumerator WaitAndSpawn(float waittime)
     {
         while (true)

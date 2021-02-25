@@ -842,7 +842,7 @@ MonoBehaviour:
   ZomClipArr:
   - {fileID: 8300000, guid: c5287f7d374ac334f80eff2505b2e0f0, type: 3}
   - {fileID: 8300000, guid: 165b8818351980148a3c41e9f76fd5be, type: 3}
-  bossDistRun: 7
+  bossDistRun: 10
 --- !u!1 &8455300175689527888
 GameObject:
   m_ObjectHideFlags: 0
